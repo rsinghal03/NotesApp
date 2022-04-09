@@ -6,7 +6,7 @@ import com.task.noteapp.data.localdatasource.entity.Note
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface NotesDao {
+interface NotesDao : BaseDao<Note> {
 
     @Query("SELECT * FROM Note")
     fun getNotes(): Flow<List<Note>>
