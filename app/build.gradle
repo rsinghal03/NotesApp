@@ -5,13 +5,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 32
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.task.noteapp"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 32
         versionCode 1
         versionName "1.0"
 
@@ -30,6 +30,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        dataBinding = true
     }
 }
 
@@ -60,14 +64,19 @@ dependencies {
     testImplementation "io.insert-koin:koin-test-junit5:$koin_version"
 
     // Room
-    implementation "androidx.room:room-runtime:2.4.2"
-    kapt "androidx.room:room-compiler:2.4.2"
-
-    // Kotlin Extensions and Coroutines support for Room
-    implementation "androidx.room:room-ktx:2.4.2"
+    def room = '2.4.1'
+    implementation "androidx.room:room-runtime:$room"
+    kapt "androidx.room:room-compiler:$room"
+    implementation "androidx.room:room-ktx:$room"
 
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2"
 
     //backport for DateTime
     implementation 'com.jakewharton.threetenabp:threetenabp:1.4.0'
+
+    // Navigation
+    def nav_version = "2.3.2"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
 }

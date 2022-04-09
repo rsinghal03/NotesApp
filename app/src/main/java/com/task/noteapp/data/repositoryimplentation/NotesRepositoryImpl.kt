@@ -7,15 +7,14 @@ import kotlinx.coroutines.flow.Flow
 
 class NotesRepositoryImpl(private val notesDao: NotesDao) : NotesRepository {
     override suspend fun insertNote(note: Note) {
-        TODO("Not yet implemented")
+        notesDao.insert(note)
     }
 
     override suspend fun deleteNote(note: Note) {
-        TODO("Not yet implemented")
+        notesDao.delete(note)
     }
 
     override suspend fun getNotes(): Flow<List<Note>> {
-        TODO("Not yet implemented")
+        return notesDao.getNotes()
     }
-
 }
