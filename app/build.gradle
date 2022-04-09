@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -42,4 +43,31 @@ dependencies {
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    // Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
+
+
+    //    Timber logging
+    implementation(group: 'com.jakewharton.timber', name: 'timber', version: '4.7.1') {
+        exclude(group:'org.jetbrains', module:'annotations')
+    }
+
+    //Dependency injection
+    def koin_version = "3.1.5"
+    implementation group: 'io.insert-koin', name: 'koin-android', version: "$koin_version"
+    testImplementation "io.insert-koin:koin-test-junit5:$koin_version"
+
+    // Room
+    implementation "androidx.room:room-runtime:2.4.2"
+    kapt "androidx.room:room-compiler:2.4.2"
+
+    // Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:2.4.2"
+
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2"
+
+    //backport for DateTime
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.4.0'
 }
