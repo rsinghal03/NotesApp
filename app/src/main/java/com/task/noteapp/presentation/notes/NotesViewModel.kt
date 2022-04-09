@@ -1,5 +1,7 @@
 package com.task.noteapp.presentation.notes
 
-class NotesViewModel {
+import com.task.noteapp.presentation.base.BaseViewModel
+
+class NotesViewModel : BaseViewModel() {
 
 }

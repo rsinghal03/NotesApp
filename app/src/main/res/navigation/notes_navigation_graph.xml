@@ -9,7 +9,7 @@
         android:name="com.task.noteapp.presentation.notes.NotesFragment"
         android:label="NotesFragment">
         <action
-            android:id="@+id/action_newsListFragment_to_newsDescriptionFragment"
+            android:id="@+id/action_notesFragment_to_noteDetailFragment"
             app:destination="@id/noteDetailFragment"
             app:enterAnim="@anim/enter_from_right"
             app:exitAnim="@anim/exit_to_left"
