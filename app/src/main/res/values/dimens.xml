@@ -7,4 +7,5 @@
 
     <dimen name="title1">26sp</dimen>
     <dimen name="body1">20sp</dimen>
+    <dimen name="spacing_extra_small">4dp</dimen>
 </resources>

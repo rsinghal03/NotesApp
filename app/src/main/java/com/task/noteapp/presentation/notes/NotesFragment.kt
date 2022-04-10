@@ -16,6 +16,8 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
+const val CREATE_NOTE = -1
+
 class NotesFragment : BaseFragment<FramentNotesBinding, NotesViewModel>() {
 
     private val notesViewModel: NotesViewModel by inject()
@@ -56,7 +58,10 @@ class NotesFragment : BaseFragment<FramentNotesBinding, NotesViewModel>() {
 
     private fun setAddNoteClickListener() {
         viewDataBinding?.addNoteFab?.setOnClickListener {
-            findNavController().navigate(R.id.action_notesFragment_to_noteDetailFragment)
+            findNavController().navigate(
+                R.id.action_notesFragment_to_noteDetailFragment,
+                bundleOf(Constant.NOTE_ID to CREATE_NOTE)
+            )
         }
     }
 
