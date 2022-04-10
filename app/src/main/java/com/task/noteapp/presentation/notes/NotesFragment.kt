@@ -3,12 +3,17 @@ package com.task.noteapp.presentation.notes
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.task.noteapp.BR
 import com.task.noteapp.R
 import com.task.noteapp.databinding.FramentNotesBinding
 import com.task.noteapp.presentation.base.BaseFragment
 import com.task.noteapp.util.Constant
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 class NotesFragment : BaseFragment<FramentNotesBinding, NotesViewModel>() {
@@ -26,6 +31,17 @@ class NotesFragment : BaseFragment<FramentNotesBinding, NotesViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
+        initObserver()
+    }
+
+    private fun initObserver() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                notesViewModel.notes.collect {
+                    notesAdapter.notes = it
+                }
+            }
+        }
     }
 
     /**

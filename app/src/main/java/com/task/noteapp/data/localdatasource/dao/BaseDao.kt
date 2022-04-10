@@ -3,6 +3,7 @@ package com.task.noteapp.data.localdatasource.dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
+import androidx.room.Update
 
 interface BaseDao<T> {
 
@@ -14,5 +15,8 @@ interface BaseDao<T> {
 
     @Delete
     suspend fun delete(vararg obj: T)
+
+    @Update
+    suspend fun update(obj: T)
 
 }

@@ -2,16 +2,16 @@ package com.task.noteapp.data.localdatasource.dao
 
 import androidx.room.Dao
 import androidx.room.Query
-import com.task.noteapp.data.localdatasource.entity.Note
+import com.task.noteapp.data.localdatasource.entity.NoteEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface NotesDao : BaseDao<Note> {
+interface NotesDao : BaseDao<NoteEntity> {
 
-    @Query("SELECT * FROM Note")
-    fun getNotes(): Flow<List<Note>>
+    @Query("SELECT * FROM Notes")
+    fun getNotes(): Flow<List<NoteEntity>>
 
-    @Query("SELECT * FROM note WHERE id = :id")
-    suspend fun getNoteById(id: Int): Note?
+    @Query("SELECT * FROM Notes WHERE id = :id")
+    suspend fun getNoteById(id: Int): NoteEntity
 
 }

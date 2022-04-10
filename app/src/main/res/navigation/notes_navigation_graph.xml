@@ -15,10 +15,15 @@
             app:exitAnim="@anim/exit_to_left"
             app:popEnterAnim="@anim/enter_from_left"
             app:popExitAnim="@anim/exit_to_right" />
+
     </fragment>
     <fragment
         android:id="@+id/noteDetailFragment"
         android:name="com.task.noteapp.presentation.notesdetail.NoteDetailFragment"
-        android:label="NoteDetailFragment" />
+        android:label="NoteDetailFragment">
+        <argument
+            android:name="noteId"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>

@@ -5,10 +5,10 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.task.noteapp.data.localdatasource.converter.DateTypeConverters
 import com.task.noteapp.data.localdatasource.dao.NotesDao
-import com.task.noteapp.data.localdatasource.entity.Note
+import com.task.noteapp.data.localdatasource.entity.NoteEntity
 
 @Database(
-    entities = [Note::class],
+    entities = [NoteEntity::class],
     version = 1
 )
 @TypeConverters(DateTypeConverters::class)

@@ -1,13 +1,19 @@
 package com.task.noteapp.domain.repository
 
-import com.task.noteapp.data.localdatasource.entity.Note
+import com.task.noteapp.data.localdatasource.entity.NoteEntity
 import kotlinx.coroutines.flow.Flow
 
 interface NotesRepository {
 
-    suspend fun insertNote(note: Note)
+    suspend fun insertNote(note: NoteEntity)
 
-    suspend fun deleteNote(note: Note)
+    suspend fun deleteNote(note: NoteEntity)
 
-    suspend fun getNotes(): Flow<List<Note>>
+    suspend fun updateNote(note: NoteEntity)
+
+    suspend fun getNoteById(id: Int): NoteEntity
+
+    fun getNotes(): Flow<List<NoteEntity>>
+
+
 }

@@ -6,14 +6,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.task.noteapp.R
-import com.task.noteapp.data.localdatasource.entity.Note
+import com.task.noteapp.data.localdatasource.entity.NoteEntity
 import com.task.noteapp.databinding.NoteListItemBinding
 
 class NotesListAdapter : RecyclerView.Adapter<NotesListViewHolder>() {
 
-    var itemClickListener: ((item: Note?) -> Unit)? = null
+    var itemClickListener: ((item: NoteEntity?) -> Unit)? = null
 
-    var notes: List<Note> = ArrayList()
+    var notes: List<NoteEntity> = ArrayList()
         set(value) {
             if (field === value) return
 
@@ -38,7 +38,10 @@ class NotesListAdapter : RecyclerView.Adapter<NotesListViewHolder>() {
 
     override fun getItemCount(): Int = notes.size
 
-    private fun getDiffUtilCallback(oldData: List<Note>, newData: List<Note>): DiffUtil.Callback {
+    private fun getDiffUtilCallback(
+        oldData: List<NoteEntity>,
+        newData: List<NoteEntity>
+    ): DiffUtil.Callback {
         return object : DiffUtil.Callback() {
             override fun getOldListSize(): Int = oldData.size
 

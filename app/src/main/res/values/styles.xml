@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TitleEditText1" parent="Widget.AppCompat.EditText">
+        <item name="android:textSize">@dimen/title1</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textCursorDrawable">@drawable/cursor_shape</item>
+    </style>
+
+    <style name="BodyEditText1" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textSize">@dimen/body1</item>
+        <item name="android:gravity">top</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
+        <item name="android:textCursorDrawable">@drawable/cursor_shape</item>
+    </style>
+
+</resources>
