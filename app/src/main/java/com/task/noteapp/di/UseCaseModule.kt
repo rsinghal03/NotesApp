@@ -11,7 +11,7 @@ import org.koin.dsl.module
 val useCaseModule = module {
 
     factory { AddNote(get()) }
-    factory { GetNotes(get(), get()) }
+    factory { GetNotes(get()) }
     factory { DeleteNote(get()) }
     factory { FormatDate() }
     factory { UpdateNote(get()) }

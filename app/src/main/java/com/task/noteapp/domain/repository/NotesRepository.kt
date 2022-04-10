@@ -1,5 +1,6 @@
 package com.task.noteapp.domain.repository
 
+import androidx.paging.PagingData
 import com.task.noteapp.data.localdatasource.entity.NoteEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -15,5 +16,5 @@ interface NotesRepository {
 
     fun getNotes(): Flow<List<NoteEntity>>
 
-
+    fun getNotesByPage(): Flow<PagingData<NoteEntity>>
 }

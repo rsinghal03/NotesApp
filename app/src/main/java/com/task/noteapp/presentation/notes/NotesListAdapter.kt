@@ -3,27 +3,18 @@ package com.task.noteapp.presentation.notes
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import com.task.noteapp.R
 import com.task.noteapp.data.localdatasource.entity.NoteEntity
 import com.task.noteapp.databinding.NoteListItemBinding
 
-class NotesListAdapter : RecyclerView.Adapter<NotesListViewHolder>() {
+class NotesListAdapter : PagingDataAdapter<NoteEntity, NotesListViewHolder>(ITEM_COMPARATOR) {
 
     var itemClickListener: ((item: NoteEntity?) -> Unit)? = null
 
-    var notes: List<NoteEntity> = ArrayList()
-        set(value) {
-            if (field === value) return
-
-            val diff = DiffUtil.calculateDiff(getDiffUtilCallback(field, value))
-            field = value
-            diff.dispatchUpdatesTo(this)
-        }
-
     override fun onBindViewHolder(holder: NotesListViewHolder, position: Int) {
-        holder.bind(notes[position])
+        holder.bind(getItem(position))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesListViewHolder {
@@ -36,27 +27,13 @@ class NotesListAdapter : RecyclerView.Adapter<NotesListViewHolder>() {
         return NotesListViewHolder(binding, itemClickListener)
     }
 
-    override fun getItemCount(): Int = notes.size
+    companion object {
+        val ITEM_COMPARATOR = object : DiffUtil.ItemCallback<NoteEntity>() {
+            override fun areContentsTheSame(oldItem: NoteEntity, newItem: NoteEntity): Boolean =
+                oldItem == newItem
 
-    private fun getDiffUtilCallback(
-        oldData: List<NoteEntity>,
-        newData: List<NoteEntity>
-    ): DiffUtil.Callback {
-        return object : DiffUtil.Callback() {
-            override fun getOldListSize(): Int = oldData.size
-
-            override fun getNewListSize(): Int = newData.size
-
-            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                return oldData[oldItemPosition].id == newData[newItemPosition].id
-            }
-
-            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                val oldItem = oldData[oldItemPosition]
-                val newItem = newData[newItemPosition]
-                return oldItem.createdDate == newItem.createdDate && oldItem.title == newItem.title && oldItem.description == newItem.description && oldItem.url ==
-                        newItem.url && oldItem.editedDate == newItem.editedDate
-            }
+            override fun areItemsTheSame(oldItem: NoteEntity, newItem: NoteEntity): Boolean =
+                oldItem.id == newItem.id
         }
     }
 }

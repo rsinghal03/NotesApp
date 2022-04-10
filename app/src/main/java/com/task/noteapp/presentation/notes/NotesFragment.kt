@@ -12,7 +12,7 @@ import com.task.noteapp.R
 import com.task.noteapp.databinding.FramentNotesBinding
 import com.task.noteapp.presentation.base.BaseFragment
 import com.task.noteapp.util.Constant
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
@@ -38,9 +38,9 @@ class NotesFragment : BaseFragment<FramentNotesBinding, NotesViewModel>() {
 
     private fun initObserver() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                notesViewModel.notes.collect {
-                    notesAdapter.notes = it
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                notesViewModel.getNotes().collectLatest {
+                    notesAdapter.submitData(lifecycle, it)
                 }
             }
         }
