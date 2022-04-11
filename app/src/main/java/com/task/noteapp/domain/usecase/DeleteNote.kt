@@ -12,4 +12,10 @@ class DeleteNote(private val notesRepository: NotesRepository) {
     suspend fun deleteNote(note: NoteEntity) {
         notesRepository.deleteNote(note)
     }
+
+    suspend fun deleteNoteById(ids: List<Int>) {
+        ids.forEach { id ->
+            notesRepository.deleteNote(id)
+        }
+    }
 }

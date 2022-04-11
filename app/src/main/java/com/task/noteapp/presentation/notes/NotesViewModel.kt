@@ -22,9 +22,9 @@ class NotesViewModel(
         return getNotesUseCase.getNotesByPage().cachedIn(viewModelScope)
     }
 
-    fun delete(notes: List<NoteEntity>) {
+    fun deleteNotes(ids: List<Int>) {
         io.launch {
-            deleteNote.deleteNote(notes)
+            deleteNote.deleteNoteById(ids)
         }
     }
 }

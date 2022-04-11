@@ -11,23 +11,20 @@ import androidx.recyclerview.widget.DiffUtil
 import com.task.noteapp.R
 import com.task.noteapp.data.localdatasource.entity.NoteEntity
 import com.task.noteapp.databinding.NoteListItemBinding
-import timber.log.Timber
 
 class NotesListAdapter : PagingDataAdapter<NoteEntity, NotesListViewHolder>(ITEM_COMPARATOR) {
 
-    var itemClickListener: ((item: NoteEntity?, binding: NoteListItemBinding) -> Unit)? = null
-    var itemLongClickListener: ((item: NoteEntity?, binding: NoteListItemBinding) -> Unit)? = null
+    var itemClickListener: ((noteId: Int, binding: NoteListItemBinding) -> Unit)? = null
+    var itemLongClickListener: ((noteId: Int, binding: NoteListItemBinding) -> Unit)? = null
 
-    val listOfSelectedItem: MutableList<NoteEntity> = mutableListOf()
-    var isActionModeOn = false
+    var listOfSelectedItem = listOf<Int>()
     var actionMode: ActionMode? = null
-    var onDeleteClickListener: ((list: List<NoteEntity>) -> Unit)? = null
+    var onDeleteClickListener: ((list: List<Int>) -> Unit)? = null
 
 
     val actionModeCallback = object : ActionMode.Callback {
         override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
             actionMode = mode
-            isActionModeOn = true
             val inflater = mode?.menuInflater
             inflater?.inflate(R.menu.group_menu, menu)
             return true
@@ -40,8 +37,7 @@ class NotesListAdapter : PagingDataAdapter<NoteEntity, NotesListViewHolder>(ITEM
         override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
             when (item?.itemId) {
                 R.id.delete -> {
-                    val list = arrayListOf<NoteEntity>().apply { addAll(listOfSelectedItem) }
-                    onDeleteClickListener?.invoke(list)
+                    onDeleteClickListener?.invoke(listOfSelectedItem)
                 }
             }
             mode?.finish()
@@ -49,17 +45,21 @@ class NotesListAdapter : PagingDataAdapter<NoteEntity, NotesListViewHolder>(ITEM
         }
 
         override fun onDestroyActionMode(mode: ActionMode?) {
-            isActionModeOn = false
             actionMode = null
-            listOfSelectedItem.clear()
+            listOfSelectedItem = listOf()
             notifyDataSetChanged()
-            Timber.d("onDestroyActionMode")
         }
     }
 
 
     override fun onBindViewHolder(holder: NotesListViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        getItem(position)?.also {
+            holder.bind(it, isSelected(it.id))
+        }
+    }
+
+    private fun isSelected(id: Int?): Boolean {
+        return listOfSelectedItem.contains(id)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesListViewHolder {
@@ -72,22 +72,22 @@ class NotesListAdapter : PagingDataAdapter<NoteEntity, NotesListViewHolder>(ITEM
         return NotesListViewHolder(binding, itemClickListener, itemLongClickListener)
     }
 
-    fun selectItem(item: NoteEntity?, binding: NoteListItemBinding) {
+    fun selectItem(noteId: Int, binding: NoteListItemBinding) {
         when (actionMode) {
             null -> Unit
             else -> {
-                if (listOfSelectedItem.contains(item)) {
-                    listOfSelectedItem.remove(item)
+                if (listOfSelectedItem.contains(noteId)) {
+                    listOfSelectedItem = listOfSelectedItem - noteId
                     binding.itemCard.setCardBackgroundColor(
                         binding.root.context.resources.getColor(
                             R.color.purple_200
                         )
                     )
-                    if (listOfSelectedItem.size == 0) {
+                    if (listOfSelectedItem.isEmpty()) {
                         actionMode?.finish()
                     }
                 } else {
-                    item?.let { listOfSelectedItem.add(it) }
+                    listOfSelectedItem = listOfSelectedItem + noteId
                     binding.itemCard.setCardBackgroundColor(
                         binding.root.context.resources.getColor(
                             R.color.grey
