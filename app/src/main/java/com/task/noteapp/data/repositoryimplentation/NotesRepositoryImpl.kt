@@ -18,8 +18,8 @@ class NotesRepositoryImpl(private val notesDao: NotesDao) : NotesRepository {
         notesDao.delete(note)
     }
 
-    override suspend fun deleteNote(id: Int) {
-        notesDao.deleteNoteById(id)
+    override suspend fun deleteNote(ids: List<Int>) {
+        notesDao.deleteNoteById(ids)
     }
 
     override suspend fun updateNote(note: NoteEntity) {

@@ -10,7 +10,7 @@ interface NotesRepository {
 
     suspend fun deleteNote(note: NoteEntity)
 
-    suspend fun deleteNote(id: Int)
+    suspend fun deleteNote(ids: List<Int>)
 
     suspend fun updateNote(note: NoteEntity)
 
