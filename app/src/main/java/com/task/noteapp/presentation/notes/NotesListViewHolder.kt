@@ -7,12 +7,13 @@ import com.task.noteapp.databinding.NoteListItemBinding
 import com.task.noteapp.extension.format
 
 class NotesListViewHolder(
-    private val newsListItemBinding: NoteListItemBinding,
-    private val itemClick: ((item: NoteEntity?) -> Unit)?
-) : RecyclerView.ViewHolder(newsListItemBinding.root) {
+    private val noteListItemBinding: NoteListItemBinding,
+    private val itemClick: ((item: NoteEntity?, binding: NoteListItemBinding) -> Unit)?,
+    private val itemLongClick: ((item: NoteEntity?, binding: NoteListItemBinding) -> Unit)?
+) : RecyclerView.ViewHolder(noteListItemBinding.root) {
 
     fun bind(item: NoteEntity?) {
-        newsListItemBinding.run {
+        noteListItemBinding.run {
             noteTitle.text = item?.title
             noteDescription.text = item?.description
             editedTag.isGone = item?.editedDate != null
@@ -24,7 +25,11 @@ class NotesListViewHolder(
 
     private fun bindClickListener(item: NoteEntity?) {
         this.itemView.setOnClickListener {
-            itemClick?.invoke(item)
+            itemClick?.invoke(item, noteListItemBinding)
+        }
+        this.itemView.setOnLongClickListener {
+            itemLongClick?.invoke(item, noteListItemBinding)
+            true
         }
     }
 }

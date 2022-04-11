@@ -8,6 +8,8 @@ interface NotesRepository {
 
     suspend fun insertNote(note: NoteEntity)
 
+    suspend fun deleteNote(note: List<NoteEntity>)
+
     suspend fun deleteNote(note: NoteEntity)
 
     suspend fun updateNote(note: NoteEntity)

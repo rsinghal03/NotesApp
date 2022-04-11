@@ -14,6 +14,10 @@ class NotesRepositoryImpl(private val notesDao: NotesDao) : NotesRepository {
         notesDao.insert(note)
     }
 
+    override suspend fun deleteNote(note: List<NoteEntity>) {
+        notesDao.deleteNote(note)
+    }
+
     override suspend fun deleteNote(note: NoteEntity) {
         notesDao.delete(note)
     }

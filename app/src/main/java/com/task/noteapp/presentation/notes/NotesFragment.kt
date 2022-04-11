@@ -9,6 +9,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.task.noteapp.BR
 import com.task.noteapp.R
+import com.task.noteapp.data.localdatasource.entity.NoteEntity
 import com.task.noteapp.databinding.FramentNotesBinding
 import com.task.noteapp.presentation.base.BaseFragment
 import com.task.noteapp.util.Constant
@@ -76,20 +77,51 @@ class NotesFragment : BaseFragment<FramentNotesBinding, NotesViewModel>() {
         }
     }
 
-    /**
-     * on list item click, navigate to details fragment
-     *
-     */
     private fun setListItemClickListener() {
-        notesAdapter.itemClickListener = {
-            val bundle = bundleOf(
-                Constant.NOTE_ID to it?.id
-            )
-            findNavController().navigate(
-                R.id.action_notesFragment_to_noteDetailFragment,
-                bundle
-            )
+        onItemClick()
+        onDeleteClick()
+        onLongPressItemClick()
+    }
+
+    private fun onDeleteClick() {
+        notesAdapter.onDeleteClickListener = {
+            notesViewModel.delete(it)
         }
+    }
+
+    private fun onLongPressItemClick() {
+        notesAdapter.itemLongClickListener = { note, binding ->
+            when (notesAdapter.actionMode) {
+                null -> {
+                    requireActivity().startActionMode(notesAdapter.actionModeCallback)
+                    notesAdapter.selectItem(note, binding)
+                }
+                else -> Unit
+            }
+        }
+    }
+
+    private fun onItemClick() {
+        notesAdapter.itemClickListener = { note, binding ->
+            when (notesAdapter.actionMode) {
+                null -> {
+                    navigateToNoteDetailFragment(note)
+                }
+                else -> {
+                    notesAdapter.selectItem(note, binding)
+                }
+            }
+        }
+    }
+
+    private fun navigateToNoteDetailFragment(it: NoteEntity?) {
+        val bundle = bundleOf(
+            Constant.NOTE_ID to it?.id
+        )
+        findNavController().navigate(
+            R.id.action_notesFragment_to_noteDetailFragment,
+            bundle
+        )
     }
 
 }
