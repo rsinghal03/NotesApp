@@ -16,18 +16,6 @@
         android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/note_url"
-            style="@style/BodyEditText1"
-            android:hint="@string/image_url"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/spacing_medium"
-            android:layout_marginVertical="@dimen/spacing_small"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/note_detail_title" />
-
-        <EditText
             android:id="@+id/note_detail_title"
             style="@style/TitleEditText1"
             android:layout_width="match_parent"
@@ -50,6 +38,7 @@
             style="@style/BodyEditText1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="@dimen/spacing_small"
             android:layout_marginHorizontal="@dimen/spacing_medium"
             android:autoLink="all"
             android:autofillHints="@string/body"
@@ -59,11 +48,10 @@
             android:inputType="text|textCapSentences|textMultiLine"
             android:linksClickable="true"
             android:textColor="?attr/colorPrimary"
-            android:layout_marginTop="@dimen/spacing_small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/note_url"
+            app:layout_constraintTop_toBottomOf="@+id/note_detail_title"
             tools:text="Some body text" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
