@@ -14,13 +14,13 @@ import com.task.noteapp.presentation.base.BaseFragment
 import com.task.noteapp.util.Constant
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 const val CREATE_NOTE = -1
 
 class NotesFragment : BaseFragment<FramentNotesBinding, NotesViewModel>() {
 
-    private val notesViewModel: NotesViewModel by inject()
+    private val notesViewModel: NotesViewModel by sharedViewModel()
 
     private val notesAdapter: NotesListAdapter by lazy { NotesListAdapter() }
 
@@ -39,7 +39,7 @@ class NotesFragment : BaseFragment<FramentNotesBinding, NotesViewModel>() {
     private fun initObserver() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                notesViewModel.getNotes().collectLatest {
+                notesViewModel.pagedNotes.collectLatest {
                     notesAdapter.submitData(lifecycle, it)
                 }
             }

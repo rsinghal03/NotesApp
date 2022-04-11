@@ -8,7 +8,7 @@ import com.task.noteapp.data.localdatasource.entity.NoteEntity
 @Dao
 interface NotesDao : BaseDao<NoteEntity> {
 
-    @Query("select * from Notes")
+    @Query("select * from Notes ORDER BY id DESC")
     fun getNotesByPage(): PagingSource<Int, NoteEntity>
 
     @Query("SELECT * FROM Notes WHERE id = :id")

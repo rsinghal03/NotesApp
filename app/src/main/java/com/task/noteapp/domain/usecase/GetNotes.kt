@@ -1,15 +1,12 @@
 package com.task.noteapp.domain.usecase
 
-import androidx.paging.PagingData
+import androidx.paging.PagingSource
 import com.task.noteapp.data.localdatasource.entity.NoteEntity
 import com.task.noteapp.domain.repository.NotesRepository
-import kotlinx.coroutines.flow.Flow
 
-class GetNotes(
-    private val notesRepository: NotesRepository
-) {
+class GetNotes(private val notesRepository: NotesRepository) {
 
-    fun getNotesByPage(): Flow<PagingData<NoteEntity>> {
-        return notesRepository.getNotesByPage()
+    fun getNotes(): PagingSource<Int, NoteEntity> {
+        return notesRepository.getNotes()
     }
 }

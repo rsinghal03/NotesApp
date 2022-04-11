@@ -1,12 +1,9 @@
 package com.task.noteapp.data.repositoryimplentation
 
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
+import androidx.paging.PagingSource
 import com.task.noteapp.data.localdatasource.dao.NotesDao
 import com.task.noteapp.data.localdatasource.entity.NoteEntity
 import com.task.noteapp.domain.repository.NotesRepository
-import kotlinx.coroutines.flow.Flow
 
 class NotesRepositoryImpl(private val notesDao: NotesDao) : NotesRepository {
 
@@ -30,15 +27,7 @@ class NotesRepositoryImpl(private val notesDao: NotesDao) : NotesRepository {
         return notesDao.getNoteById(id)
     }
 
-    override fun getNotesByPage(): Flow<PagingData<NoteEntity>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = 20,
-                enablePlaceholders = false
-            )
-        ) {
-            notesDao.getNotesByPage()
-        }.flow
+    override fun getNotes(): PagingSource<Int, NoteEntity> {
+        return notesDao.getNotesByPage()
     }
-
 }

@@ -5,11 +5,11 @@ import com.task.noteapp.databinding.ActivityMainBinding
 import com.task.noteapp.presentation.base.BaseActivity
 import com.task.noteapp.presentation.base.BaseViewModel
 import com.task.noteapp.presentation.notes.NotesViewModel
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class NotesActivity : BaseActivity<ActivityMainBinding>() {
 
-    private val notesViewModel: NotesViewModel by inject()
+    private val notesViewModel: NotesViewModel by viewModel()
 
     override fun getViewModel(): BaseViewModel = notesViewModel
 
