@@ -17,7 +17,7 @@ class NotesListViewHolder(
         noteItemBinding.run {
             noteTitle.text = item.title
             noteDescription.text = item.description
-            editedTag.isGone = item.editedDate != null
+            editedTag.isGone = item.editedDate == null
             createdDate.text = item.createdDate.format()
             noteImage.isGone = true
             if (isSelected) {

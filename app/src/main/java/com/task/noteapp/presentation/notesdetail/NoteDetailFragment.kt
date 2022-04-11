@@ -22,7 +22,7 @@ class NoteDetailFragment : BaseFragment<FragmentNotesDetailsBinding, NoteDetailV
 
     private val noteDetailViewModel: NoteDetailViewModel by viewModel {
         parametersOf(
-            requireArguments().getInt(Constant.NOTE_ID) ?: -1
+            requireArguments().getInt(Constant.NOTE_ID)
         )
     }
 
