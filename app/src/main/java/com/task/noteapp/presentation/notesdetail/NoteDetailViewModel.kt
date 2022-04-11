@@ -10,7 +10,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class NoteDetailViewModel(
     private val addNoteUseCase: AddNote,
@@ -27,14 +26,13 @@ class NoteDetailViewModel(
     }
 
     fun createOrUpdate(title: String, body: String) {
-        Timber.d("title:$title, body$body")
         io.launch {
             val isEdited = noteDetail.value.title != title || noteDetail.value.description != body
             val note = _noteDetail.value.copy(
                 title = title,
                 description = body
             )
-            addNoteUseCase.addNote(note, isEdited)
+            addNoteUseCase.createOrUpdate(note, isEdited)
         }
     }
 

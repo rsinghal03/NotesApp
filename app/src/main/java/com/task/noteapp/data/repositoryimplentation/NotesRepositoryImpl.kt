@@ -14,10 +14,6 @@ class NotesRepositoryImpl(private val notesDao: NotesDao) : NotesRepository {
         notesDao.insert(note)
     }
 
-    override suspend fun deleteNote(note: List<NoteEntity>) {
-        notesDao.deleteNote(note)
-    }
-
     override suspend fun deleteNote(note: NoteEntity) {
         notesDao.delete(note)
     }
@@ -32,10 +28,6 @@ class NotesRepositoryImpl(private val notesDao: NotesDao) : NotesRepository {
 
     override suspend fun getNoteById(id: Int): NoteEntity {
         return notesDao.getNoteById(id)
-    }
-
-    override fun getNotes(): Flow<List<NoteEntity>> {
-        return notesDao.getNotes()
     }
 
     override fun getNotesByPage(): Flow<PagingData<NoteEntity>> {

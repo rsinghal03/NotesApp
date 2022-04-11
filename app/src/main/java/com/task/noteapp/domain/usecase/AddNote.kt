@@ -11,7 +11,7 @@ class AddNote(
     private val notesRepository: NotesRepository
 ) {
 
-    suspend fun addNote(note: NoteEntity, isEdited: Boolean) {
+    suspend fun createOrUpdate(note: NoteEntity, isEdited: Boolean) {
         when (note.id) {
             Constant.NEW_NOTE_ID -> {
                 if (note.isValid())

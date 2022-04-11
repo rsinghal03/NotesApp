@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class NotesViewModel(
     private val getNotesUseCase: GetNotes,
-    private val deleteNote: DeleteNote,
+    private val deleteNoteUseCase: DeleteNote,
     private val io: CoroutineScope = CoroutineScope(Dispatchers.IO)
 ) : BaseViewModel() {
 
@@ -24,7 +24,7 @@ class NotesViewModel(
 
     fun deleteNotes(ids: List<Int>) {
         io.launch {
-            deleteNote.deleteNoteById(ids)
+            deleteNoteUseCase.deleteNoteById(ids)
         }
     }
 }

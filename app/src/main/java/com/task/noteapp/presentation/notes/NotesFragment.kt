@@ -53,10 +53,14 @@ class NotesFragment : BaseFragment<FramentNotesBinding, NotesViewModel>() {
     private fun initAdapter() {
         setRecyclerProperty()
         setListItemClickListener()
-        setAddNoteClickListener()
+        onDeleteClick()
+        setAddNoteFabClickListener()
     }
 
-    private fun setAddNoteClickListener() {
+    /**
+     * set floating action button click listener
+     */
+    private fun setAddNoteFabClickListener() {
         viewDataBinding?.addNoteFab?.setOnClickListener {
             findNavController().navigate(
                 R.id.action_notesFragment_to_noteDetailFragment,
@@ -78,7 +82,6 @@ class NotesFragment : BaseFragment<FramentNotesBinding, NotesViewModel>() {
 
     private fun setListItemClickListener() {
         onItemClick()
-        onDeleteClick()
         onLongPressItemClick()
     }
 
@@ -122,5 +125,4 @@ class NotesFragment : BaseFragment<FramentNotesBinding, NotesViewModel>() {
             bundle
         )
     }
-
 }

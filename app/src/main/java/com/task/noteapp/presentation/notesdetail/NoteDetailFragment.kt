@@ -16,7 +16,6 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
-import timber.log.Timber
 
 class NoteDetailFragment : BaseFragment<FragmentNotesDetailsBinding, NoteDetailViewModel>() {
 
@@ -36,7 +35,6 @@ class NoteDetailFragment : BaseFragment<FragmentNotesDetailsBinding, NoteDetailV
         super.onViewCreated(view, savedInstanceState)
         setUpListener()
         initObserver()
-        Timber.d(requireArguments().getInt(Constant.NOTE_ID).toString())
     }
 
     private fun initObserver() {
@@ -48,7 +46,6 @@ class NoteDetailFragment : BaseFragment<FragmentNotesDetailsBinding, NoteDetailV
                 }
             }
         }
-
     }
 
     private fun setUpListener() {

@@ -9,10 +9,6 @@ class GetNotes(
     private val notesRepository: NotesRepository
 ) {
 
-    fun getNotes(): Flow<List<NoteEntity>> {
-        return notesRepository.getNotes()
-    }
-
     fun getNotesByPage(): Flow<PagingData<NoteEntity>> {
         return notesRepository.getNotesByPage()
     }
